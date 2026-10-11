@@ -6,11 +6,13 @@ import java.util.List;
 
 public interface IClientService {
 
-    List<Client> getAll();
+    List<Client> getAllClients();
 
-    Client getById(Long id);
+    Client getClientById(Long id);
 
-    Client save(Client client);
+    Client ajouterClient(Client client);
 
-    void deleteById(Long id);
+    Client modifierClient(Long id, Client client);
+
+    void supprimerClient(Long id);
 }

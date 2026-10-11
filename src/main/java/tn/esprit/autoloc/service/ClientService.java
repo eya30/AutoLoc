@@ -15,22 +15,43 @@ public class ClientService implements IClientService {
     private final ClientRepository clientRepository;
 
     @Override
-    public List<Client> getAll() {
+    public List<Client> getAllClients() {
         return clientRepository.findAll();
     }
 
     @Override
-    public Client getById(Long id) {
-        return clientRepository.findById(id).orElse(null);
+    public Client getClientById(Long id) {
+        return clientRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Client introuvable : " + id));
     }
 
     @Override
-    public Client save(Client client) {
+    public Client ajouterClient(Client client) {
         return clientRepository.save(client);
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Client modifierClient(Long id, Client client) {
+        Client clientExistant = clientRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Client introuvable : " + id));
+
+        // Remplacer ces champs par les vrais attributs de ton entité Client.
+        clientExistant.setNom(client.getNom());
+        clientExistant.setPrenom(client.getPrenom());
+        clientExistant.setEmail(client.getEmail());
+        clientExistant.setTelephone(client.getTelephone());
+
+        return clientRepository.save(clientExistant);
+    }
+
+    @Override
+    public void supprimerClient(Long id) {
+        if (!clientRepository.existsById(id)) {
+            throw new RuntimeException("Client introuvable : " + id);
+        }
+
         clientRepository.deleteById(id);
     }
 }

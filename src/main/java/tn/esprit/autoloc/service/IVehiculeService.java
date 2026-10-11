@@ -12,5 +12,7 @@ public interface IVehiculeService {
 
     Vehicule ajouterVehicule(Vehicule vehicule);
 
+    Vehicule modifierVehicule(Long id, Vehicule vehicule);
+
     void supprimerVehicule(Long id);
 }

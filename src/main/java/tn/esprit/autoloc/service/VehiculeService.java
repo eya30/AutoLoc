@@ -30,6 +30,17 @@ public class VehiculeService implements IVehiculeService {
     }
 
     @Override
+    public Vehicule modifierVehicule(Long id, Vehicule vehicule) {
+        Vehicule vehiculeExistant = vehiculeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(
+                        "Véhicule introuvable avec l'ID : " + id));
+
+        vehicule.setIdVehicule(id);
+
+        return vehiculeRepository.save(vehicule);
+    }
+
+    @Override
     public void supprimerVehicule(Long id) {
         vehiculeRepository.deleteById(id);
     }
